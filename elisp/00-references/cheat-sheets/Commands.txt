@@ -1,0 +1,2501 @@
+Useful FreeBSD/UNIX commands:
+
+hostname           Name of computer
+uname -a           Shows operating system info
+env                Shows current environment variables, including user & path
+df -h              D_isk F_ree space
+uptime             Server UpTime stats & operation
+
+egrep 'ad[0-9]' /var/run/dmesg.boot   List hard drives
+egrep 'cd[0-9]' /var/run/dmesg.boot   List CDROM drives
+
+pwd                Present Working Directory
+w                  W_ho is logged on & server info
+who                WHO is logged on and IP address
+last               LAST users logged on and statuses
+ac                 ACcounting of total time logged on
+top                TOP processes currently executing listed per CPU time
+ps aux
+ps ax
+
+set
+netstat
+trafshow
+cd                 Change the Directory that you are working in
+man                Show the MANual pages for a program
+tail -300 maillog  Show the TAILend of the 'maillog' file -- last 300 lines
+kill -9 PID        KILLs a specific process # (PID), non-catchable, non-ignorable (-9)
+shutdown -r now    ShutDown the computer, then reboot, immediately
+id
+
+vmstat -w 5
+vmstat boot
+more               Display a file, showing a page at a time. Show MORE by hitting 'space'.
+head
+tail
+ls -lt             LiSt (-l with L_ots of info) (-t sort by time)
+ls -laTFWi         LisT all info
+
+                   FIND (starting in root dir) "nameoffile" or anything begining with that
+find / -name "nameoffile*"  
+                   
+           FIND files modified within last day:
+find / -mtime -1 -print
+                   FIND files modified over 5 days ago:
+find / -mtime +5 -print
+
+users              Shows which users are logged on using shell / command line
+
+                   Backs up a file, preserving date/time stamp:
+                   
+mv   hosts.allow                  hosts.allow-2005-Apr-16
+cp   hosts.allow-2005-Apr-16      hosts.allow                   
+
+                   Compress a log file, then mail as an attachment
+gzip -c access_log.processed -v > access_log.processed.gz; ls -lt          
+uuencode access_log.processed.gz DOMAIN.com.log.gz | mail -s "DOMAIN.com Log File" SomeEmail@xyz.com           
+Or inline:
+mail -s "Some Text File" email@domain.com < file.log
+
+ls -laTFWiR        LiSt files with all info R = recurse subdirs.  Takes 3 hours!
+chown userowner somedirectory
+                   Change the owner to 'userowner' of directory 'somedirectory'
+/usr/local/psa/qmail/bin/qmail-qstat
+                   Show brief statistics about qmail
+/usr/local/psa/qmail/bin/qmail-qread                   
+                   Show the summary info for EACH email in qmail queue
+pkg_info           List the packages installed                   
+pkg_add            Add a package
+ftp ftp.gnu.org    connects to ftp site ftp.gnu.org
+                   'get' gets a file
+                   'cd' changes a directory
+Ctrl-C             Cancel operation
+Ctrl-S             PauSe operation
+Alt-F1             Alternate to the 1st terminal window when using 'shell'
+Alt-F2             Alternate to the 2nd terminal window when using 'shell'
+
+
+========================================================================================
+http://www.personal.psu.edu/faculty/l/n/lnl/423/unix4.html
+
+                         Unix Commands and Editors
+
+                              Prof. L. N. Long
+                             AERSP 497B / 597C
+
+                            Sources of Material
+
+                                  [Image]
+
+    * "Running Linux" by Welsh, Dalheimer, and Kaufman, 3rd Edition,
+      (Chap. 1)
+
+    * A few internet sites
+
+    *
+
+    *
+
+                A Few Preliminary Words About Unix Commands
+
+                                  [Image]
+
+    * Unix is case sensitive. LS won't work, but ls will...
+
+    * You can get by with a very small number of commands, and look up
+      the other ones that you need later on.
+
+    * You should not be logged in as root any more than you have to. It
+      is dangerous (e.g. you could delete some important files by
+      mistake) and it is not secure (e.g. if you walk away from your
+      desk, someone could take complete control of your machine).
+
+    * Everything in Unix is a file (including devices)
+
+    * Most of the commands that the average user uses are the same on all
+      Unix systems (e.g. Solaris, AIX, HPUX, IRIX, Linux, ...), but the
+      system files and system commands can be quite different in the
+      various flavors of Unix. [so while Unix System Administrators argue
+      over which Unix is the best, to the average user they all look very
+      similar]
+
+    *
+
+                          Top 10 List of Commands
+
+                                  [Image]
+
+ man
+      This is the unix help command. To get help you also sometimes need
+      to know the command name. For example, you could type
+
+         man passwd
+
+
+
+      But you can also do keyword searches if you don't know the exact
+      name of the command you want information on, for example :
+
+         man -k password
+
+
+
+      The info for these help commands are stored in the"manpages"
+
+ cp
+      This command COPIES files. For example
+
+         cp file.dat new.dat
+
+
+
+      Or to copy all the files in one directory to the current directory:
+
+
+
+         cp ../mydir/* .
+
+
+
+      .. means to go up one level in directories.
+      . means current working directory. To copy all the files in the
+      current directory to another directory:
+
+         cp * ~/filedir/
+
+
+
+      ~ will take you to your home directory.
+      Note that the above command WILL NOT copy files that begin with a
+      "."
+
+ more
+      Lets you view a file on the screen, for example
+
+         more file.dat
+
+      (use the space bar to page thru the file). Look also at the cat
+      command, which is similar.
+
+ ls
+      This LISTS files in a directory. Most often you would type 'ls -l'
+      . The "-l" key gives all file details. Also, the -a option will
+      show all files that begin with "." Also, "ls -lt" will sort the
+      files according to date/time.
+
+         ls -lt | more
+
+      will "pipe" the output of "ls -lt" to the more command, so you can
+      view it one page at a time.
+
+ mkdir
+      This makes a directory just like in DOS, e.g.
+
+             mkdir newdir
+
+
+
+ cd
+      CHANGE DIRECTORY, for example
+
+        cd newdir
+
+      Typing just "cd" will take you to your home directory. (note to go
+      up one directory do: cd ..) What does this do:
+
+        cd .
+
+
+
+ pwd
+      Tells you which directory you are currently in (print working
+      directory)
+
+ rm
+      removes (deletes) a file, e.g.
+
+        rm file.dat
+
+      (you might want to use "rm -i" for safety, which will cause it to
+      prompt you before deleting it.). Be very careful here, especially
+      with wildcards such as "*". The command:
+
+                rm *
+
+
+
+      would erase all files in the current directory (except those
+      starting with ., and files you do not have permission to erase).
+
+      The following is an extremly dangerous command. If you have root
+      privilege, this could delete all files from the entire machine:
+
+              rm -r /*
+
+      The -r tells it to recursively delete all subdirectories !!
+
+ vi
+      One of the original Unix editors. Available on basically all Unix
+      machines, so it is important to know the basic vi commands.
+
+ mv
+      This moves a file (sort of like renaming it), for example
+
+            mv oldfile.dat newfile.dat
+
+
+
+                          Some Other Key Commands
+
+                                  [Image]
+
+ rmdir
+      removes a directory
+
+ alias
+      If there are long strings of commands that you type often, you can
+      create an alias for them. For example,
+
+        alias godir  'cd ~/myfiles/temp'
+
+ Mail
+      Standard unix mail program (note that mail and Mail do different
+      things sometimes)
+
+ pine
+      Menu driven mail program. very handy.
+
+ f77 (or f90 or pgf90 or xlf90 )
+      Fortran compiler command. e.g.
+
+         f77 test.f -o test
+
+      puts the executable into "test". To run the program you then just
+      type "test" .
+
+ cc or gcc
+      c compiler, e.g.
+
+         gcc  myprog.c  -o myexec
+
+
+
+ passwd
+      Changes your password.
+
+ ps
+      Shows jobs running on the system. e.g.
+
+         ps -aef
+
+ jobs
+      Shows jobs running on the system. (you can use "kill %1" to kill
+      job number 1). You can use "fg %1" to bring job 1 into the
+      foreground. (ctrl c will kill current process, ctrl z will put
+      current process in background)
+
+ lpr
+      Prints a file. To print to the 315 Hammond Postscript printers, use
+
+            lpr -Pps  file.ps
+
+
+
+      (sometimes it is lp instead of lpr) (use lpstat or lpq to check the
+      status of the print job)
+
+ users
+      Shows who is currently on the system. (see also 'who')
+
+ "control" c
+      Kills your current job
+
+ "control" z
+      Suspends you current job. bg then puts it in the background, or fg
+      brings it back into the foreground. "jobs" will display them.
+
+                        Some More Key Unix Commands
+   (be careful. some of these commands have no effect if your file system
+                            uses AFS or DFS !!)
+
+                                  [Image]
+
+ du
+      Checks disk usage, e.g.
+
+         du -k
+
+ df
+      shows amount of space left on all the disk drives, e.g.
+
+        df -k
+
+ quota -v
+      Shows your quota and your current usage of disk space. Be careful,
+      some systems that use afs or dfs might not use this command for
+      quotas, so it might give you misleading info. (to check your quota
+      on an AFS system, use "fs lq" )
+
+ chmod
+      used to change the protection on your files. To not allow anyone to
+      read, write, or execute your files, do
+
+        chmod 700 *
+
+      To give other people read and execute privelege do
+
+        chmod 755 *
+
+      Again, be careful, if your system uses DFS or AFS then this will
+      have NO effect !
+
+ chown
+      This lets you change the ownership of a file, e.g.
+
+         chown joe  file.dat
+
+      where joe is your userid
+
+ grep
+      to search thru files to see if the expression 'exp' is contained in
+      those files do:
+
+         grep exp file.dat
+
+      You could search thru all the files in a directory using:
+
+              grep exp .
+
+ diff
+      This will compare two files and tell you where they are different,
+      e.g.
+
+         diff file1.dat file2.dat
+
+ find
+      This will search the disk drives for a particular file, e.g.
+
+                find . -name file.dat -print
+
+      will start searching in the current director (.) for a file called
+      'file.dat' and it will print to the screen.
+
+ ln
+      This is a very powerful and useful command, it lets you create
+      links between files, e.g.
+
+             ln -s file1.dat file2.dat
+
+      will create a new file called 'file2.dat' which simply points to
+      'file1.dat'. This is also useful for directories.
+
+ which
+      Finds the location of an executable file (e.g. which more)
+
+ head
+      Shows the first few lines of a file (e.g. head file.dat)
+
+ tail
+      Shows the last few lines of a file (e.g. tail file.dat)
+
+ xclock, xcalc, xgraph
+      Useful X-windows routines
+
+ nice
+      Sets the priority of a job (e.g. nice +6 myjob). The higher the
+      number the lower the priority (and the 'nicer' you are to others)
+
+ script
+      Turns on scripting to record everything that happens in a login
+      session (e.g. script myrecord). If you just type script, then the
+      results are stored in a file called typescript. To stop recording
+      type 'exit'
+
+ uncompress
+      Uncompresses files such as files.dat.Z (e.g. uncompress
+      files.dat.Z)
+
+ tar
+      archiving utility
+
+                                  Editors
+
+                                  [Image]
+ emacs
+      A standard unix editor. my prefered choice.
+
+ vi
+      A standard unix editor. Available on virtually ALL unix machines.
+ Some people use this a lot, others use it just for editing small files
+ quickly. (see also vim)
+
+ xedit
+      A simple X-windows editor (will not work from a dumb terminal)
+
+                               The vi editor
+
+                                  [Image]
+ To start vi :
+
+ vi filename
+
+ where filename is the name of the file you wish to edit.
+
+ A few vi commands
+
+    * h, moves cursor left
+    * j, moves cursor down
+    * k, moves cursor up
+    * l, moves cursor right
+    * x, delete character
+    * dw, delete word
+    * dd, delete line
+    * p, put last deletion after cursor
+    * u, undo last change
+    * i, turn on insert mode (hit the esc key twice to stop)
+    * :wq, write file and quit
+    * :q!, quit without saving file
+    * ctrl f, move forward one page
+    * ctrl b, move backward one page
+    * /text, will search for next occurance of 'text' (hitting n will
+      find next occurence)
+    * G, go to end of file
+    * 1G, go to first line of file
+
+    *
+    *
+    *
+    *
+    *
+    *
+
+                                      emacs
+
+                                     [Image]
+
+    * GNU Emacs emacs is an incredibly powerful editor. It is almost an
+      operating system. You can do the standard cut & paste, but you could also
+      read your mail in it. It can also show two files at once using a split
+      screen. Incidentally, I wrote this document (and almost all my documents)
+      using emacs.
+
+      emacs can be used in X-windows (you need to understand 'setenv DISPLAY'
+      and 'xhost') OR you can use it on a 'dumb terminal'. To run emacs on a
+      dumb terminal (or inside a unix shell), you may want to enter 'emacs -nw'
+      instead of just 'emacs'.
+
+      emacs relies on 'control' or 'meta' commands. These are intimidating at
+      first, but are really quite simple. For example
+
+      ctrl-a
+
+      means hold down the 'Ctrl' key and then hit the 'a' key. This will put the
+      cursor at the start of a line. Some commands require you to use the 'meta'
+      key. The meta key on most key boards will be the 'Esc' key.
+
+      Once emacs is running you can just start typing. Or you can read in a file
+      by tpying:
+
+      ctrl-x ctrl-f
+
+      and it will then ask you to enter a filename.
+
+      The following keystroke combinations are some of the ones
+
+      defined:
+
+      Ctrl-a Beginning Of Line                Meta-b Backward Word
+
+      Ctrl-b Backward Character               Meta-f Forward Word
+
+      Ctrl-d Delete Next Character            Meta-i Insert File
+
+      Ctrl-e End Of Line                      Meta-k Kill To End Of Paragraph
+
+      Ctrl-f Forward Character                Meta-q Form Paragraph
+
+      Ctrl-g Multiply Reset                   Meta-v Previous Page
+
+      Ctrl-h Delete Previous Character        Meta-y Insert Current Selection
+
+      Ctrl-j Newline And Indent               Meta-z Scroll One Line Down
+
+      Ctrl-k Kill To End Of Line              Meta-d Delete Next Word
+
+      Ctrl-l Redraw Display                   Meta-D Kill Word
+
+      Ctrl-m Newline                          Meta-h Delete Previous Word
+
+      Ctrl-n Next Line                        Meta-H Backward Kill Word
+
+      Ctrl-o Newline And Backup               Meta-< Beginning Of File
+
+      Ctrl-p Previous Line                    Meta-> End Of File
+
+      Ctrl-r Search/Replace Backward          Meta-] Forward Paragraph
+
+      Ctrl-s Search/Replace Forward           Meta-[ Backward Paragraph
+
+      Ctrl-t Transpose Characters
+
+      Ctrl-u Multiply by 4                    Meta-Delete Delete Previous Word
+
+      Ctrl-v Next Page                        Meta-Shift Delete Kill Previous Word
+
+      Ctrl-w Kill Selection                   Meta-Backspace Delete Previous Word
+
+      Ctrl-y Unkill                           Meta-Shift Backspace Kill Previous Word
+
+      Ctrl-z Scroll One Line Up
+
+      ctrl-x ctrl-f   Read File
+
+      ctrl-2          split screen
+
+      ctrl-1          single screen
+
+      MANUALS
+
+      You can order printed copies of the GNU Emacs Manual for $20.00/copy
+      postpaid from the Free Software Foundation, which develops GNU software
+      (contact them for quantity prices on the manual). Their address is:
+
+      Free Software Foundation 675 Mass Ave. Cambridge, MA 02139
+
+      Your local Emacs maintainer might also have copies avail- able. As with
+      all software and publications from FSF, everyone is permitted to make and
+      distribute copies of the Emacs manual. The TeX source to the manual is
+      also included in the Emacs source distribution.
+
+    * Emacs Commands
+
+                                 Makefiles
+
+                                  [Image]
+
+    * Click here for info on makefiles
+
+    * Click here for sample makefiles
+
+    *
+    *
+    *
+    *
+
+                            Networking Commands
+
+                                  [Image]
+ ftp
+      Lets you connect to another computer and copy files back and forth.
+ (e.g. "ftp brownie.hbc.psu.edu") Once you get connected, you use the
+ "get" and "put" commands. You can also type "help" for a list of more
+ commands. 'prompt' will toggle prompt on and off. 'mget' will let you
+ get a huge list of files (multiple get). 'bin' and 'asc' will tell it
+ whether you are transferring binary or ascii files, respectively.
+
+ telnet
+      This allows you to connect to another computer and run programs on
+ it. (e.g. "telnet farman.cac.psu.edu") For security reasons, most people
+ use ssh instead of telnet now.
+
+ setenv DISPLAY
+      This command is crucial for using Xwindows. When you use telnet to
+ connect to a remote computer, you have to telnet that computer where to
+ display the Xwindows. That is what this command does. (e.g.
+
+    setenv DISPLAY farman.cac.psu.edu:0
+
+ The ":0" tells it to use monitor number 0. In this example, farman is
+ the machine you are physically sitting at. On the local machine you may
+ also have to type
+
+    xhost remote-machine-name
+
+ which lets the other machine (named remote-machine name) send images to
+ your machine.
+
+ xhost
+      this command lets you control what other computers can send
+ Xwindows images to your computer. It is used as: "xhost
+ cupcake.hbc.psu.edu" (which would give the remote computer (cupcake) the
+ ability to display Xwindows images on your computer. The command "xhost
+ +" lets ANY computer send Xwindows images to your computer, this is very
+ dangerous and a unix/network security problem. You should NOT use xhost
+ +
+
+ xfconfig
+      As we discussed earlier, this is used to configure your network
+
+ route
+      This command lets you add and delete network routes, and gateways
+
+ traceroute
+      This will show you what route your packets are taking from your
+ local machine to some remote machine, e.g.
+
+   traceroute yahoo.com
+
+                      Commands for Working with Files
+
+                                  [Image]
+
+ ls
+
+ pwd
+
+ more (or cat)
+
+ cp
+
+ mv
+
+ cd
+
+ df
+
+ du
+
+                         A Few Key System Commands
+
+                                  [Image]
+
+    * passwd
+
+    *
+    *
+    *
+    *
+    *
+
+                          File Permissions in UNIX
+
+                                  [Image]
+ A file is a structure defined by the operating system.
+ Typical UNIX files have three types of permissions associated with them:
+
+ read - the contents of the file can be looked at.
+
+ write - the contents of the file can be edited or changed.
+
+ execute (x) - the file initiate a UNIX process
+
+ These are said to be permission bits.
+
+ Permission bits on a file are give two three groups of users relative to
+ the owner of the file. These are:
+
+ The user (u) -- the person who owns the file
+
+ The group (g) -- a member of the group that corresponds to the group of
+ the file.
+
+ The world (o) -- All other (o) users on the system.
+
+ An "ls -l" of this file looks like:
+
+ -rw-r--r--  1 leous          784 Aug 30 12:42 file.html
+
+  ^^^^^^^^^  ^ ^^^^^          ^^^^     ^         ^
+
+  |||||||||  | |||||          ||||     |         |_______ name
+
+  |||||||||  | |||||          ||||     |________________  creation date
+
+  |||||||||  | |||||          ||||______________________  file size
+
+  |||||||||  | |||||____________________________________  owner of file
+
+  |||||||||  |__________________________________________  link count
+
+        |||_____________________________________________  other permissions
+
+     |||________________________________________________  group permissions
+
+  |||___________________________________________________  owner permissions
+
+ Other file permissions:
+
+                                                          CODES
+
+                                                          -----
+
+ -rwxr-xr--  1 leous         4700 Jun 22 11:47 file.exe   (754)
+
+ -r--r--r--  1 leous          784 Aug 30  9:32 file.txt   (444)
+
+ -rw-rw-r--  1 leous          784 Aug 24  1995 file.group (664)
+
+ -rw-rw-rw-  1 leous          784 Jul 11 12:42 bad.idea   (666)
+
+ That is,
+
+ r = 4     (i.e. 2**2)
+
+ w = 2     (i.e. 2**1)
+
+ x = 1     (i.e. 2**0)
+
+ so
+
+    rwx = 7
+
+    r-- = 4
+
+    rw- = 6
+
+    rwxr-xr-- = 754
+
+ To use the above codes you use the 'chmod' command. For example if you
+ wanted to set a file to the permissions shown above (on the file file.txt)
+ for a file called mine.dat, you would do :
+
+        chmod 444 mine.txt
+
+               ^
+
+               |
+
+               |______ CODE
+
+                            Brief Notes on AFS
+
+                 (This is used in the 316 Hammond Unix Lab)
+
+                                  [Image]
+
+    * To login, do:
+         o klog
+
+    * To change to your AFS directory, (ASSUMING YOUR USERID IS SAM) do:
+         o cd /afs/psu.edu/users/s/a/sam
+      (note the directories s and a match the first two letters in sam)
+
+    * To make this easier, create your own dfs directory via:
+         o cd
+         o ln -s /afs/psu.edu/users/s/a/sam dfs
+
+    * To make a directory available to be read by ALL other users, cd to
+      that directory and then do:
+         o fs setacl . system:anyuser rl
+
+    * To make a directory secure and NOT available to other users, cd to
+      that directory and then do:
+         o fs setacl . system:anyuser none
+
+    * To see what your acl's are set do:
+         o fs listacl
+
+    * To check your disk quota do:
+         o fs listquota
+
+    * http://cac.psu.edu/beatnic/Soft_Lang/afs/afs_main.html
+
+    * AFS FAQ
+
+                            Brief Notes on DCE
+
+                                  [Image]
+
+    * To login, do:
+         o dce_login
+    * To change to your DCE directory, (ASSUMING YOUR USERID IS SAM) do:
+         o cd /.../dce.psu.edu/fs/users/s/a/sam
+      (note the directories s and a match the first two letters in sam)
+    * To make this easier, create your own dfs directory via:
+         o cd
+         o ln -s /.../dce.psu.edu/fs/users/s/a/sam dfs
+    *
+    * DCE BOOK: http://www.oreilly.com/catalog/udce/
+    * DCE FAQ
+
+    
+
+            Maintained by: Prof. L. N. Long , 233M Hammond Bldg
+                             Email: lnl@psu.edu
+                       © Copyright 2000, Lyle N. Long
+=========================================================================================
+http://www.nscee.edu/nscee/QandA/unix-commands.html
+
+Unix Command Summary
+
+See the Unix tutorial for a leisurely, self-paced introduction on how to
+use the commands listed below. For more documentation on a command, consult
+a good book, or use the man pages. For example, for more information on
+grep, use the command man grep.
+
+Contents
+
+   * cat --- for creating and displaying short files
+   * chmod --- change permissions
+   * cd --- change directory
+   * cp --- for copying files
+   * date --- display date
+   * echo --- echo argument
+   * ftp --- connect to a remote machine to download or upload files
+   * grep --- search file
+   * head --- display first part of file
+   * ls --- see what files you have
+   * lpr --- standard print command (see also print )
+   * more --- use to read files
+   * mkdir --- create directory
+   * mv --- for moving and renaming files
+   * ncftp --- especially good for downloading files via anonymous ftp.
+   * print --- custom print command (see also lpr )
+   * pwd --- find out what directory you are in
+   * rm --- remove a file
+   * rmdir --- remove directory
+   * rsh --- remote shell
+   * setenv --- set an environment variable
+   * sort --- sort file
+   * tail --- display last part of file
+   * tar --- create an archive, add or extract files
+   * telnet --- log in to another machine
+   * wc --- count characters, words, lines
+
+---------------------------------------------------------------------------
+
+cat
+
+This is one of the most flexible Unix commands. We can use to create, view
+and concatenate files. For our first example we create a three-item
+English-Spanish dictionary in a file called "dict."
+
+   % cat >dict
+     red rojo
+     green verde
+     blue azul
+<control-D>
+   %
+
+<control-D> stands for "hold the control key down, then tap 'd'". The
+symbol > tells the computer that what is typed is to be put into the file
+dict. To view a file we use cat in a different way:
+
+   % cat dict
+     red rojo
+     green verde
+     blue azul
+   %
+
+If we wish to add text to an existing file we do this:
+
+   % cat >>dict
+     white blanco
+     black negro
+     <control-D>
+   %
+
+Now suppose that we have another file tmp that looks like this:
+
+   % cat tmp
+     cat gato
+     dog perro
+   %
+
+Then we can join dict and tmp like this:
+
+   % cat dict tmp >dict2
+
+We could check the number of lines in the new file like this:
+
+   % wc -l dict2
+8
+
+The command wc counts things --- the number of characters, words, and line
+in a file.
+---------------------------------------------------------------------------
+
+chmod
+
+This command is used to change the permissions of a file or directory. For
+example to make a file essay.001 readable by everyone, we do this:
+
+   % chmod a+r essay.001
+
+To make a file, e.g., a shell script mycommand executable, we do this
+
+   % chmod +x mycommand
+
+Now we can run mycommand as a command.
+
+To check the permissions of a file, use ls -l . For more information on
+chmod, use man chmod.
+---------------------------------------------------------------------------
+
+cd
+
+Use cd to change directory. Use pwd to see what directory you are in.
+
+   % cd english
+   % pwd
+   % /u/ma/jeremy/english
+   % ls
+novel poems
+   % cd novel
+   % pwd
+   % /u/ma/jeremy/english/novel
+   % ls
+ch1 ch2 ch3 journal scrapbook
+   % cd ..
+   % pwd
+   % /u/ma/jeremy/english
+   % cd poems
+   % cd
+   % /u/ma/jeremy
+
+Jeremy began in his home directory, then went to his english subdirectory.
+He listed this directory using ls , found that it contained two entries,
+both of which happen to be diretories. He cd'd to the diretory novel, and
+found that he had gotten only as far as chapter 3 in his writing. Then he
+used cd .. to jump back one level. If had wanted to jump back one level,
+then go to poems he could have said cd ../poems. Finally he used cd with no
+argument to jump back to his home directory.
+---------------------------------------------------------------------------
+
+cp
+
+Use cp to copy files or directories.
+
+   % cp foo foo.2
+
+This makes a copy of the file foo.
+
+   % cp ~/poems/jabber .
+
+This copies the file jabber in the directory poems to the current
+directory. The symbol "." stands for the current directory. The symbol "~"
+stands for the home directory.
+---------------------------------------------------------------------------
+
+date
+
+Use this command to check the date and time.
+
+   % date
+Fri Jan  6 08:52:42 MST 1995
+
+---------------------------------------------------------------------------
+
+echo
+
+The echo command echoes its arguments. Here are some examples:
+
+   % echo this
+     this
+   % echo $EDITOR
+     /usr/local/bin/emacs
+   % echo $PRINTER
+     b129lab1
+
+Things like PRINTER are so-called environment variables. This one stores
+the name of the default printer --- the one that print jobs will go to
+unless you take some action to change things. The dollar sign before an
+environment variable is needed to get the value in the variable. Try the
+following to verify this:
+
+   % echo PRINTER
+     PRINTER
+
+---------------------------------------------------------------------------
+
+ftp
+
+Use ftp to connect to a remote machine, then upload or download files. See
+also: ncftp
+
+Example 1: We'll connect to the machine fubar.net, then change director to
+mystuff, then download the file homework11:
+
+   % ftp solitude
+     Connected to fubar.net.
+     220 fubar.net FTP server (Version wu-2.4(11) Mon Apr 18 17:26:33 MDT 1994) ready.
+   Name (solitude:carlson): jeremy
+     331 Password required for jeremy.
+   Password:
+     230 User jeremy logged in.
+   ftp> cd mystuff
+     250 CWD command successful.
+   ftp> get homework11
+   ftp> quit
+
+Example 2: We'll connect to the machine fubar.net, then change director to
+mystuff, then upload the file collected-letters:
+
+   % ftp solitude
+     Connected to fubar.net.
+     220 fubar.net FTP server (Version wu-2.4(11) Mon Apr 18 17:26:33 MDT 1994) ready.
+   Name (solitude:carlson): jeremy
+     331 Password required for jeremy.
+   Password:
+     230 User jeremy logged in.
+   ftp> cd mystuff
+     250 CWD command successful.
+   ftp> put collected-letters
+   ftp> quit
+
+The ftp program sends files in ascii (text) format unless you specify
+binary mode:
+
+   ftp> binary
+   ftp> put foo
+   ftp> ascii
+   ftp> get bar
+
+The file foo was transferred in binary mode, the file bar was transferred
+in ascii mode.
+
+---------------------------------------------------------------------------
+
+grep
+
+Use this command to search for information in a file or files. For example,
+suppose that we have a file dict whose contents are
+
+   red rojo
+   green verde
+   blue azul
+   white blanco
+   black negro
+
+Then we can look up items in our file like this;
+
+   % grep red dict
+     red rojo
+   % grep blanco dict
+     white blanco
+   % grep brown dict
+   %
+
+Notice that no output was returned by grep brown. This is because "brown"
+is not in our dictionary file.
+
+Grep can also be combined with other commands. For example, if one had a
+file of phone numbers named "ph", one entry per line, then the following
+command would give an alphabetical list of all persons whose name contains
+the string "Fred".
+
+   % grep Fred ph | sort
+     Alpha, Fred: 333-6565
+     Beta, Freddie: 656-0099
+     Frederickson, Molly: 444-0981
+     Gamma, Fred-George: 111-7676
+     Zeta, Frederick: 431-0987
+
+The symbol "|" is called "pipe." It pipes the output of the grep command
+into the input of the sort command.
+
+For more information on grep, consult
+
+   % man grep
+
+---------------------------------------------------------------------------
+
+head
+
+Use this command to look at the head of a file. For example,
+
+   % head essay.001
+
+displays the first 10 lines of the file essay.001 To see a specific number
+of lines, do this:
+
+   % head -20 essay.001
+
+This displays the first 20 lines of the file.
+---------------------------------------------------------------------------
+
+ls
+
+Use ls to see what files you have. Your files are kept in something called
+a directory.
+
+   % ls
+     foo       letter2
+     foobar    letter3
+     letter1   maple-assignment1
+   %
+
+Note that you have six files. There are some useful variants of the ls
+command:
+
+   % ls l*
+     letter1 letter2 letter3
+   %
+
+Note what happened: all the files whose name begins with "l" are listed.
+The asterisk (*) is the " wildcard" character. It matches any string.
+---------------------------------------------------------------------------
+
+lpr
+
+This is the standard Unix command for printing a file. It stands for the
+ancient "line printer." See
+
+   % man lpr
+
+for information on how it works. See print for information on our local
+intelligent print command.
+---------------------------------------------------------------------------
+
+mkdir
+
+Use this command to create a directory.
+
+   % mkdir essays
+
+To get "into" this directory, do
+
+   % cd essays
+
+To see what files are in essays, do this:
+
+   % ls
+
+There shouldn't be any files there yet, since you just made it. To create
+files, see cat or emacs.
+---------------------------------------------------------------------------
+
+more
+
+More is a command used to read text files. For example, we could do this:
+
+   % more poems
+
+The effect of this to let you read the file "poems ". It probably will not
+fit in one screen, so you need to know how to "turn pages". Here are the
+basic commands:
+
+   * q --- quit more
+   * spacebar --- read next page
+   * return key --- read next line
+   * b --- go back one page
+
+For still more information, use the command man more.
+
+---------------------------------------------------------------------------
+
+mv
+
+Use this command to change the name of file and directories.
+
+   % mv foo foobar
+
+The file that was named foo is now named foobar
+
+---------------------------------------------------------------------------
+
+ncftp
+
+Use ncftp for anonymous ftp --- that means you don't have to have a
+password.
+
+   % ncftp ftp.fubar.net
+     Connected to ftp.fubar.net
+   > get jokes.txt
+
+The file jokes.txt is downloaded from the machine ftp.fubar.net.
+
+---------------------------------------------------------------------------
+
+print
+
+This is a moderately intelligent print command.
+
+   % print foo
+   % print notes.ps
+   % print manuscript.dvi
+
+In each case print does the right thing, regardless of whether the file is
+a text file (like foo ), a postcript file (like notes.ps, or a dvi file
+(like manuscript.dvi. In these examples the file is printed on the default
+printer. To see what this is, do
+
+   % print
+
+and read the message displayed. To print on a specific printer, do this:
+
+   % print foo jwb321
+   % print notes.ps jwb321
+   % print manuscript.dvi jwb321
+
+To change the default printer, do this:
+
+   % setenv PRINTER jwb321
+
+---------------------------------------------------------------------------
+
+pwd
+
+Use this command to find out what directory you are working in.
+
+   % pwd
+/u/ma/jeremy
+   % cd homework
+   % pwd
+/u/ma/jeremy/homework
+   % ls
+assign-1 assign-2 assign-3
+   % cd
+   % pwd
+/u/ma/jeremy
+   %
+
+Jeremy began by working in his "home" directory. Then he cd 'd into his
+homework subdirectory. Cd means " change directory". He used pwd to check
+to make sure he was in the right place, then used ls to see if all his
+homework files were there. (They were). Then he cd'd back to his home
+directory.
+---------------------------------------------------------------------------
+
+rm
+
+Use rm to remove files from your directory.
+
+   % rm foo
+     remove foo? y
+   % rm letter*
+     remove letter1? y
+     remove letter2? y
+     remove letter3? n
+   %
+
+The first command removed a single file. The second command was intended to
+remove all files beginning with the string "letter." However, our user
+(Jeremy?) decided not to remove letter3.
+---------------------------------------------------------------------------
+
+rmdir
+
+Use this command to remove a directory. For example, to remove a directory
+called "essays", do this:
+
+   % rmdir essays
+
+A directory must be empty before it can be removed. To empty a directory,
+use rm.
+---------------------------------------------------------------------------
+
+rsh
+
+Use this command if you want to work on a computer different from the one
+you are currently working on. One reason to do this is that the remote
+machine might be faster. For example, the command
+
+   % rsh solitude
+
+connects you to the machine solitude. This is one of our public
+workstations and is fairly fast.
+
+See also: telnet
+---------------------------------------------------------------------------
+
+setenv
+
+   % echo $PRINTER
+     labprinter
+   % setenv PRINTER myprinter
+   % echo $PRINTER
+     myprinter
+
+---------------------------------------------------------------------------
+
+sort
+
+Use this commmand to sort a file. For example, suppose we have a file dict
+with contents
+
+red rojo
+green verde
+blue azul
+white blanco
+black negro
+
+Then we can do this:
+
+   % sort dict
+     black negro
+     blue azul
+     green verde
+     red rojo
+     white blanco
+
+Here the output of sort went to the screen. To store the output in file we
+do this:
+
+   % sort dict >dict.sorted
+
+You can check the contents of the file dict.sorted using cat , more , or
+emacs .
+---------------------------------------------------------------------------
+
+tail
+
+Use this command to look at the tail of a file. For example,
+
+   % head essay.001
+
+displays the last 10 lines of the file essay.001 To see a specific number
+of lines, do this:
+
+   % head -20 essay.001
+
+This displays the last 20 lines of the file.
+---------------------------------------------------------------------------
+
+tar
+
+Use create compressed archives of directories and files, and also to
+extract directories and files from an archive. Example:
+
+   % tar -tvzf foo.tar.gz
+
+displays the file names in the compressed archive foo.tar.gz while
+
+   % tar -xvzf foo.tar.gz
+
+extracts the files.
+---------------------------------------------------------------------------
+
+telnet
+
+Use this command to log in to another machine from the machine you are
+currently working on. For example, to log in to the machine "solitude", do
+this:
+
+   % telnet solitude
+
+See also: rsh.
+---------------------------------------------------------------------------
+
+wc
+
+Use this command to count the number of characters, words, and lines in a
+file. Suppose, for example, that we have a file dict with contents
+
+red rojo
+green verde
+blue azul
+white blanco
+black negro
+
+Then we can do this
+
+   % wc dict
+     5      10      56 tmp
+
+This shows that dict has 5 lines, 10 words, and 56 characters.
+
+The word count command has several options, as illustrated below:
+
+   % wc -l dict
+     5 tmp
+   % wc -w dict
+     10 tmp
+   % wc -c dict
+     56 tmp
+
+=========================================================================================
+http://www.SloppyCode.net/nix/
+
+Here's a command reference card for some regularly used unix commands, tested on linux but
+should hopefully work on most unix command shells. Any additional (non-obscure) commands you
+think should be added,or corrections please email me.
+
+A DOS version of this reference card (+2000 resource kit additions) will be coming soon.
+
+ General help
+[command] --help - gives syntax for using that command
+man [command] - brings up the manual page for the command, if it exists
+man [command] > file.txt - dumps the manual page(s) for the command into 'file.txt'
+whatis [command] - gives a short description of the command.
+help - gives a list of commands (GNU Bash).
+help [command] - gives extra information on the commands listed above.
+
+ Viewing/editing/creating a text file
+vi [filename] - opens VI text editor, if the file doesn't exist, it'll be created on saving.
+ (when inside vi)
+  - using 'i' inserts
+  - pressing 'escape' and then ':' goes back to command mode.
+  - '/searchstring' searchs for 'searchstring' using regular expressions.
+  - ':' followed by 'w' writes
+  - ':' followed by 'qw' writes then quits
+  - ':' followed by 'q' quits.
+  - ':' followed by 'q!' quits regardless of whether changes are made.
+  - ':' followed by 'z' undos.
+pico [filename] - launches the PICO editor for the filename.
+more [filename] - shows one screen's worth of the file at a time.
+less [filename] - similar to more
+cat [filename] | more - works like more, cat concats 2 strings
+
+ General/System commands
+su [user] - changes the login to 'user', or to the root if no 'user' is given.
+date - shows the system date
+whoami - tells you who you're logged in as
+uptime - how long the computer has been running, plus other details
+w - shows who's logged on, what they're doing.
+df - how much disk space is left.
+du - disk usage by your login, it can also total up directories.
+uname -mrs - userful info about the system
+uname -a - all details about the system
+
+ Desktop / X server + client
+Switchdesk {manager - gnome, Enlightenment, etc} - Switches your desktop
+
+ What's running
+ps - what's running.
+ps ax - shows all processes
+top - sort of interactive version of ps.
+kill [pid] - terminates the named process, which can be name or number or other options.
+killall -HUP [command name] - kill a process, running the command specified, by name.
+killall -9 [command] - similar to the above
+xkill - kills a frozen application in X (gnome,kde etc. desktops), you just click on the
+frozen app.
+
+
+ File system
+ls -la - list all files/directories
+dir - simple form of ls
+cd [dir] - change directory
+cd ~ - go back to the home directory
+cdup - similar to using "cd ..", go up one directory.
+pwd - print which directory you're in.
+./[filename] - run the file if it's executable and in the current directory
+rm [filename] - delete a file
+rm -R [directory] - delete a directory
+mv [oldfilename] [newfilename] - renames the file (or directory)
+cp [filename-source] [filename-destination] - copy the file from one place to another
+cp -R [dir-source] [dir-destination] - copy a directory an all its subdirectories
+mkdir [name] - makes a directory.
+cat [sourcefile] >> [destinationfile] - appends sourcefile to the end of destinationfile
+
+- zipping/taring
+tar -cvzf mytar.tar.gz sourcefilesordir - creates a new tar file, verbose options on, runs it
+through gnuzip,f is the filename
+tar -xvf mytar.tar.gz destination - extracts a tar file (this example is compressed with
+gzip), verbosely, f is the filename
+gzip fileordir - compresses a file with gzip.
+gunzip file.gz - decompresses a file with gzip.
+NB gzip only compresses files, it doesn't collect them into a single file like a tarball
+does.
+
+
+ Searching
+locate [filename] - searches the system using an indexed database of files. use updatedb to
+update the file database
+locate [filename] | sort - sorts the files alphabetically
+whereis [filename] - locates an application, such as 'whereis bash'
+find [filename] - searches the filesystem as with locate, but without a database so its
+slower.
+find /directory -atime +30 -print - searches for files not used in the past 30 days.
+
+ Setting up links
+ln -s target linkname - creates a symbolic link, like a shortcut to the target directory or
+filename.
+ln target linkname - creates the default hard link. Deleting this will delete the targetted
+file or directory.
+
+ Network commands
+dig domainname - retrieves information about a domain, such as name servers, mx records
+whois domainname - whois info on a domain
+finger user - gives info about a user, their group status, but can also be used over a
+network
+netstat -ape - lots of info about whos connected to your machine, what processes are doing
+what with sockets
+
+ Piping
+Piping to another command is straight forward enough:
+
+locate filename | grep /usr/local > searchresults.txt - searches for filename, runs the
+results through grep to filter everything without /usr/local in it, and then outputs the
+results to searchresults.txt
+
+| runs one application via another, and can be used multiple times e.g. cat /usr/group | more
+| grep root | sort
+> creates a new file if once doesn't already exist, overwrites the contents of the file if it
+does exist
+>> appends to the end of the file, and creates the file if one doesn't exist.
+< sends everything after this to the application, e.g. ./mysql -u bob -p databasename <
+mysqldump.sql
+
+ Permissions and directory listing format
+groups [username] - shows what groups the user belongs to
+id [username] - shows extended information about a user.
+finger [user] - give details about a user.
+passwd [user] - changes the password for a user, or without the user argument, changes your
+password.
+chsh [user] - changes the shell for a user.
+userdel [user] - removes a user from the system, use -r to remove their home directory too.
+newgrp [group id] - log into a new group.
+useradd -d /home/groupname -g groupname - add a new user with the d being the homedirectory,
+g the default group they belong to.
+groupadd [groupname] - adds a group
+
+Take a look at the users/groups on the system with:
+
+cat /etc/passwd | sort
+cat /etc/group | sort
+
+The stuff below is in the man pages also.
+The format of passwd is:
+username
+password denoted by x (use cat /etc/shadow | sort to list the shadow password file)
+uid - user identifier number
+gid - group identifier number
+misc information such as real name
+users home directory
+shell for the user
+
+The format of group is:
+name of group
+password denoted by x (use cat /etc/gshadow | sort to list the shadow group file)
+gid - group identifier number
+list of additional users assigned to the group
+
+Break down of permissions in a directory listing:
+-rw-r--r-- 1 mainuser devel 9054 Dec 28 12:42 index.html
+
+The first character indicates whether it is a directory or file (d for directory).
+After that, the next 3 (rw-) are owner permissions.
+The following 3 (r--) are group permissions
+The following 3(r--) are permissions for other users.
+
+After that reads the number of files inside the directory if it's a directory (which it isn't
+so it's 1) this can also be links to the file, the owner of the file, the group the file
+belongs to, size in bytes, date and time and then the filename.
+
+Chmod and Chown
+Owner,group and other permissions can be r,w,x. Translated into their decimal equivalents
+(actually octal but...)
+owner - read=400,write=200,execute=100
+group - read=40,write=20,execute=10
+other - read=4,write=2,execute=1
+
+Unix file permissions calculator
+              Read             Write            Execute
+    Owner
+    Group
+   Others
+
+                                                        Mode
+
+So add them up and you've got your user permissions for chmoding:
+chmod [mode] fileordirectory - changes the permissions on a file or directory. use -r to
+recursively change a whole directory and its sub directories.
+
+e.g chmod 755 myfile.txt - changes the permissions on the file to 755 which is : owner
+read,write,execute; group read,execute; other read,execute.
+
+chown [user:group] fileordirectory - changes the user and group ownership of a file or
+directory. Use -R to recursively change a whole directory and its sub directories.
+chgrp [group] fileordirectory - changes the groupownership of a file or directory. Use -R to
+recursively change a whole directory and its sub directories.
+
+
+ MySQL
+mysqldump - Dumps a table,database or all databases to a SQL file. Use the --opt argument for
+best results e.g.
+mysqldump -u username -p --opt database > file.sql
+mysql - The mySQL query manager. To import/export a database to or from a SQL try:
+mysql -u username -p database < file_to_go_in.sql
+mysql -u username -p database > file_to_go_to.sql
+==========================================================================================
+Some UNIX commands and possible UNIX commands:
+
+Found using:
+http://www.Google.com/search?q=freebsd+head+tail+awk+sed+grep+trafshow
+
+Type the word 'man' then the name of the command for help or
+search on Google:
+http://www.Google.com/search?q=man+unix+command
+
+See also:
+http://www.Google.com/search?q=unix+nice+awk+grep+mv
+
+
+ash.static
+a.out
+arch
+ash
+badblocks
+awk
+dnsdomainname
+basename
+bash
+bsh
+cat
+cfdisk
+chgrp
+chmod
+chown
+chroot
+cp
+cpio
+csh
+date
+dd
+df
+dmesg
+domainname
+doexec
+egrep
+echo
+ed
+false
+env
+ex
+fdisk.orig
+fdisk
+gawk-3.0.3
+fgrep
+gawk
+gunzip
+gdb
+grep
+hostname
+gzip
+head
+nisdomainname
+igawk
+install
+ipcalc
+jfdisk
+kill
+ksh
+ldconfig
+ldd
+less
+ln
+ls
+mail
+mkdir
+mke2fs
+mknod
+mktemp
+more
+mount
+mv
+open
+netstat
+nslookup
+ypdomainname
+ping
+ps
+pwd
+red
+rm
+rmdir
+route
+rpm
+sed
+sleep
+sort
+strace
+stty
+su
+sync
+tail
+tar
+tcsh
+timetest
+touch
+true
+turbopkg
+umount
+uname
+usleep
+vi
+view
+vim
+wc
+zcat
+zsh
+swapon
+mkswap
+rpm/macros
+rpm/rpmrc
+rpmrc
+
+
+From a listing of Linux RPMs:
+
+2UTF-1.11-3
+a2ps-4.10.4-4
+aalib-1.2-7
+abisuite-0.7.6-1
+adjtimex-1.7-1
+afio-2.4.5-2
+amanda-2.4.1p1-2
+amanda-client-2.4.1p1-2
+amanda-server-2.4.1p1-2
+am-utils-6.0.2-2
+aout-libs-1.5-1
+aout-libs-devel-1.5-1
+apache-1.3.9-6
+apache-devel-1.3.9-6
+apcupsd-3.6.2-2
+APE-0.9.1-1
+apmd-3.0beta8-1
+arc-5.21e-4
+arpwatch-2.1a4-13
+ASBeautifier-0.8.2-1
+ascii-2.6-1
+ash-0.2-17
+asmutils-0.05-2
+at-3.1.8-4
+audiofile-0.1.9-2
+audiofile-devel-0.1.9-2
+aumix-1.22.1-3
+authconfig-2.0-2
+autoconf-2.13-2
+autofs-3.1.3-26
+automake-1.4-5
+awemidi-0.4.2b-2
+balsa-0.4.9.5-2
+bash-2.03-8
+bash-docs-2.03-8
+bash-static-2.03-8
+bc-1.05a-7
+bdflush-1.5-10
+beav-14.0.6-2
+biff-0.10-1
+bin86-0.4-7
+bind-devel-8.2.2P5-1
+bind-utils-8.2.2P5-1
+binstats-1.0-2
+binutils-2.9.1.0.25-7
+bison-1.28-6
+blt-2.4g-3
+bm2font-3.0-7
+bmv-1.2-1
+bootpc-061-7
+bpowerd-2.2-4
+byacc-1.9-11
+bzip2-0.9.5b-1
+bzip2-devel-0.9.5b-1
+C++2LaTeX-1.1-3
+cdecl-2.5-10
+cdlabelgen-1.5.0-4
+cdp-0.33-12
+cdrecord-1.8a35-1
+cdrecord-cdda2wav-1.8a35-1
+cdrecord-devel-1.8a35-1
+cdrecord-mkisofs-1.8a35-1
+cfingerd-noroot-1.3.2-4
+cflow-2.0-4
+cgicc-3.0.1-2
+cgihtml-1.66-3
+chkconfig-1.0.6-1
+chkfontpath-1.3-1
+cleanfeed-0.95.7b-3
+color-ls-1.2-1
+control-center-1.0.51-2
+control-center-devel-1.0.51-2
+converters-1.0-13
+cpio-2.4.2-14
+cproto-4.6-2
+cracklib-2.7-4
+cracklib-dicts-2.7-4
+crontabs-1.7-5
+ctags-3.2-1
+cu-sudo-1.6.1-1
+cvs-1.10.6-4
+cvsweb-1.62-1
+daemontools-0.53-1
+ddd-doc-3.1.5-3
+ddd-dynamic-3.1.5-3
+ddd-semistatic-3.1.5-3
+ddd-static-3.1.5-3
+dev-2.7.8-1
+dhcp-client-2.0-11
+dialog-0.6-15
+diffstat-1.25-7
+diffutils-2.7-14
+dip-3.3.7o-14
+dos2unix-3.1-2
+dosemu-0.99.10-5
+dosemu-freedos-0.99.10-5
+dosfstools-2.2-2
+dump-0.4b11-1
+e2fsprogs-1.18-1
+e2fsprogs-devel-1.18-1
+ed-0.2-12
+ee-0.3.11-2
+eject-2.0.2-3
+ElectricFence-2.1-1
+elm-2.5.0-0.2pre9
+elvis-2.1_4-6
+elvis-x-2.1_4-6
+emacs-20.4-3
+emacs-el-20.4-3
+emacs-leim-20.4-3
+emacs-nox-20.4-3
+emacs-po_mode-0.10.35-3
+emacs-X11-20.4-3
+EnlightenDSM-3.4.0-17tl
+enlightenment-0.16.3-7
+enscript-1.6.1-8
+escpf-0.4beta2-3
+esound-0.2.15-4
+esound-devel-0.2.15-4
+etcskel-6.0-2
+eterm-0.8.9-5
+ethereal-0.7.9-1
+exmh-2.0.3-2
+expect-5.28-30
+ext2ed-0.1-20
+extfile-0.1-2
+f2c-19970805-5
+faces-1.6.1-15
+faces-devel-1.6.1-15
+faces-xface-1.6.1-15
+faq-6.0-2
+fdutils-5.2-5
+fetchmail-5.1.0-2
+file-3.27-3
+FileRunner-2.5-2
+filesystem-1.3.6-1
+fileutils-4.0-5
+findutils-4.1-32
+finger-0.10-24
+flex-2.5.4a-6
+fnlib-0.4-8
+fnlib-devel-0.4-8
+fort77-1.14a-1
+fortune-mod-1.0-13
+freetype-1.3-1
+freetype-devel-1.3-1
+from-1.5-2
+ftp-0.15-1
+fwhois-1.00-11
+gawk-3.0.4-3
+gcc-2.95.2-2
+gcc-chill-2.95.2-2
+gcc-compat-2.7.2.3-2
+gcc-g++-2.95.2-2
+gcc-g77-2.95.2-2
+gcc-java-2.95.2-2
+gcc-objc-2.95.2-2
+gcombust-0.1.25-1
+gd-1.7.3-2
+gdb-4.18-6
+gdbm-1.8.0-1
+gdbm-devel-1.8.0-1
+gd-compat-1.3-1
+gd-compat-devel-1.3-1
+gd-devel-1.7.3-2
+gdm-2.0beta4-12
+gedit-0.6.1-1
+genpower-1.0.1-5
+gettext-0.10.35-3
+getty_ps-2.0.7j-7
+ghostscript-5.50-5
+ghostscript-fonts-5.50-1
+ghostview-1.5-8
+giftrans-1.12.2-4
+gimp-1.0.4-3
+gimp-data-extras-1.0.0-4
+gimp-devel-1.0.4-3
+gimp-libgimp-1.0.4-3
+gimp-manual-1.0.0-5
+gkrellm-0.7.4-1
+glade-devel-0.5.3-2
+glib-1.2.6-2
+glibc-2.1.2-15
+glibc-devel-2.1.2-15
+glibc-profile-2.1.2-15
+glib-devel-1.2.6-2
+gltt-2.4-3
+gltt-devel-2.4-3
+gmc-4.5.40-1
+gmp-2.0.2-9
+gmp-devel-2.0.2-9
+gn-2.24-3
+gnome-admin-1.0.3-1
+gnome-audio-1.0.0-8
+gnome-core-1.0.53-5
+gnome-core-devel-1.0.53-5
+gnome-games-1.0.51-11
+gnome-games-devel-1.0.51-11
+gnome-libs-1.0.53-3
+gnome-libs-devel-1.0.53-3
+gnome-media-1.0.51-2
+gnome-network-1.0.2-2
+gnome-objc-1.0.2-3
+gnome-objc-devel-1.0.2-3
+gnome-pim-1.0.10-2
+gnome-pim-devel-1.0.10-2
+gnome-print-0.9-2
+gnome-print-devel-0.9-2
+gnome-utils-1.0.50-1
+gnotepad+-1.1.3-2
+gnumeric-0.45-1
+gperf-2.7-6
+gpm-1.17.9-3
+gpm-devel-1.17.9-3
+gqview-0.6.0-3
+grep-2.4-1
+groff-1.11.1-1
+groff-gxditview-1.11.1-1
+grun-0.9.2-1
+gsl-0.3f-3
+gtk+-1.2.6-5
+gtk+-devel-1.2.6-5
+gtk---1.0.3-1
+gtk---devel-1.0.3-1
+gtk---devel-static-1.0.3-1
+gtk-engines-0.8-2
+gtkfind-1.0.2-2
+gtkglarea-1.2-2
+gtkglarea-devel-1.2-2
+Gtk-Perl-0.5121-1
+gtksamba-0.3.2pl1-2
+gtksql-0.3-1
+gtop-1.0.5-2
+guile-1.3.2a-1
+guile-devel-1.3.2a-1
+gv-3.5.8-7
+GXedit-1.23-2
+gzip-1.2.4-15
+hdparm-3.5-23
+helptool-2.4-7
+hexcalc-1.0-2
+hexed-1.2-2
+hexedit-0.9.4-3
+howto-6.2-2
+howto-html-6.2-2
+howto-sgml-6.2-2
+hsc-0.916-1
+htdig-3.1.2-1
+icewm-0.9.48-3
+ifhp-3.3.10-1
+ImageMagick-4.2.2-4
+ImageMagick-devel-4.2.2-4
+imlib-1.9.8-2
+imlib-cfgeditor-1.9.8-2
+imlib-devel-1.9.8-2
+imwheel-0.9.6-4
+indent-2.2.4-1
+inetd-0.10-1
+inews-2.2.2-1
+info-4.0-4
+initscripts-6.0.0-1
+inn-2.2.2-1
+inn-devel-2.2.2-1
+intimed-1.10-9
+ipchains-1.3.9-2
+ipchains-devel-1.3.9-2
+iptraf-2.0.1-1
+iputils-990915-1
+iputils-ipv6-990915-1
+irda-utils-0.9.4-1
+irquery-0.4.7-2
+isapnptools-1.20-1
+iselect-1.0.3-1
+ispell-3.1.20-22
+itcl-3.0.1-30
+jaZip-0.32-2
+jed-0.98.7-2
+jed-common-0.98.7-2
+jed-xjed-0.98.7-2
+joe-2.8-17
+junkbuster-2.0.2-5
+kbd-0.99-5
+kdeadmin-1.1.2-3
+kdebase-1.1.2-14
+kdegames-1.1.2-2
+kdegraphics-1.1.2-3
+kdelibs-1.1.2-3
+kdemultimedia-1.1.2-3
+kdenetwork-1.1.2-5
+kdesupport-1.1.2-1
+kdeutils-1.1.2-2
+kernel-2.2.13-12
+kernel-doc-2.2.13-12
+kernel-headers-2.2.13-12
+kernel-ibcs-2.2.13-12
+kernel-pcmcia-cs-2.2.13-12
+kernel-smp-2.2.13-12
+kernel-source-2.2.13-12
+kernel-utils-2.2.13-12
+knfsd-1.4.7-1
+knfsd-clients-1.4.7-1
+kon2-0.3.8-16
+konfont-0.1-2
+korganizer-1.1.1-3
+kpilot-3.1b9-1
+kterm-6.2.0-12
+lclint-2.4b-6
+ld.so-1.9.9-8
+less-340-3
+lesstif-0.89.4-3
+lesstif-devel-0.89.4-3
+lftp-2.1.4-1
+lha-1.14e-1
+libautocontrol-1.0-2
+libautocontrol-devel-1.0-2
+libc5compat-1.0-2
+libc5compat-ld.so-1.9.9-8
+libc5compat-svga-1.0-2
+libc5compat-X11-1.0-2
+libelf-0.6.4-5
+libghttp-1.0.4-2
+libghttp-devel-1.0.4-2
+libglade-0.7-2
+libglade-devel-0.7-2
+libgtop-1.0.5-3
+libgtop-devel-1.0.5-3
+libjpeg-6b-7
+libjpeg-devel-6b-7
+libpcap-0.4-13
+libpng-1.0.3-3
+libpng-compat-0.96-2
+libpng-devel-1.0.3-3
+libPropList-0.8.3-2
+libstdc++-2.10-2
+libstdc++-compat-2.9.0-3
+libtermcap-2.0.8-21
+libtiff-3.4-6
+libtiff-devel-3.4-6
+libtool-1.3.3-2
+libturboconsole-0.6.4-1
+libturbolinux-0.6.4-1
+libungif-4.1.0-2
+libungif-devel-4.1.0-2
+libungif-progs-4.1.0-2
+libxml-1.7.3-3
+libxml-devel-1.7.3-3
+libxmltok-1.0-3
+libxmltok-devel-1.0-3
+lilo-0.21-6
+lockvc-3.4-1
+logcheck-1.1-5
+logrotate-3.3-3
+losetup-2.10c-1
+lout-3.08-8
+LPRng-3.6.12-2
+LPRng-filters-3.6.12-2
+lrzsz-0.12.20-2
+lslk-1.19-5
+lsof-4.45-1
+ltrace-0.3.6-2
+lynx-2.8.3-3
+m4-1.4-14
+mailcap-2.0.3-1
+mailx-8.1.1-8
+make-3.78.1-2
+MAKEDEV-2.5-1
+man-1.5g-5
+man-pages-1.26-1
+maplay-1.2-6
+mawk-1.3.3-11
+mc-4.5.40-1
+mcserv-4.5.40-1
+mcvert-2.16-2
+Mesa-3.1-1
+Mesa-devel-3.1-1
+Mesa-glut-3.1-1
+Mesa-glut-devel-3.1-1
+metamail-2.7-20
+mew-1.94.1-1
+mgetty-1.1.21-5
+mgetty-sendfax-1.1.21-5
+mgetty-viewfax-1.1.21-5
+mgetty-voice-1.1.21-5
+mgeupsd-0.4-1
+micq-980720-2
+mikmod-3.1.7-3
+mingetty-0.9.4-10
+minicom-1.82.1-1
+mkbootdisk-1.2-1
+mkinitrd-2.3-2
+mktemp-1.5-1
+mkxauth-1.7-11
+mod_perl-1.21-2
+modutils-2.3.7-1
+moonclock-1.0-14
+mount-2.10c-1
+mpage-2.4-7
+mpeg_lib-1.2.2adm-4
+mpeg_lib-devel-1.2.2adm-4
+mpg123-0.59r-2
+Msql-Mysql-modules-1.2210-2
+mtools-3.9.1-24
+mtr-0.41-2
+mtrace-2.1.2-15
+mtr-gtk-0.41-2
+multimedia-2.1-15
+mutt-1.0-1
+MySQL-3.22.27-5
+MySQL-client-3.22.27-5
+MySQL-devel-3.22.27-5
+nag-1.0-5
+nasm-0.98-4
+ncftp-3.0beta21-1
+ncompress-4.2.4-14
+ncurses3-1.9.9e-9
+ncurses-5.0-15
+ncurses-devel-5.0-15
+nenscript-1.13++-9
+netatalk-devel-1.4b2+asun2.1.3-4
+netscape-communicator-4.6.1-6
+net-tools-1.53_v6-1
+netwatch-0.6c-3
+newt-0.50-16
+newt-devel-0.50-16
+nkf-1.62p5-3
+nls-1.0-2
+nmap-2.12-2
+nmh-0.27-8
+nscd-2.1.2-15
+nss_ldap-97-3
+ntalk-0.11-1
+Ntool-1.1.1-3GNOME
+ntp-4.0.98g-1
+open-1.4-6
+openldap-1.2.8-1
+openldap-devel-1.2.8-1
+openldap-libs-1.2.8-1
+ORBit-0.5.0-4
+ORBit-devel-0.5.0-4
+p2c-1.22-3
+pam_ldap-42-4
+pam_ntdom-0.23-5
+pam_smb-1.1.5-1
+pam-0.70-2
+pamconfig-0.51-5
+pan-0.6.7-1
+passwd-0.58-1
+patch-2.5.3-3
+pciutils-2.1.2-1
+pcre-2.05-1
+pdksh-5.2.14-1
+pdmenu-1.2.38-3
+perl-5.00503-6
+perl-DBI-1.13-1
+perl-Getopt-Mixed-1.008-6
+perl-gettext-1.0-4
+perl-HTML-Parser-2.20-2
+perl-libnet-1.0605-2
+perl-libwww-5.36-2
+perl-MD5-1.7-5
+perl-MIME-Base64-2.06-2
+perl-MLDBM-2.00-2
+perl-Tie-IxHash-1.21-2
+perl-Tk-800.010-4
+pidentd-3.0.7-1
+pilot-link-0.9.3-1
+pilot-link-devel-0.9.3-1
+pine-4.20-1
+plan-1.7.2-3
+plan-server-1.7.2-3
+playmidi-2.4-7
+playmidi-X11-2.4-7
+pmake-2.1.34-1
+pmake-customs-2.1.34-1
+popt-1.3-1
+portmap-4.0-15
+postgresql-6.5.2-3
+postgresql-devel-6.5.2-3
+postgresql-server-6.5.2-3
+ppp-2.3.10-2
+procinfo-17-1
+procmail-3.14-1
+procps-2.0.6-1
+procps-X11-2.0.6-1
+proftpd-1.2.0pre9-2
+psacct-6.3-10
+psmisc-18-3
+pstotext-1.7-2
+psutils-1.17-3
+purp-0.9.2-1
+pwdb-0.60-2
+pwgen-1-3
+pxe-0.1-9
+pygnome-1.0.50-1
+pygtk-0.6.3-1
+python-1.5.2-4
+python-devel-1.5.2-4
+python-docs-1.5.2-4
+pythonlib-1.22-5
+python-pygresql-2.2-1
+qps-1.8-1
+qt-1.44-6
+qt-devel-1.44-6
+quota-1.66-5
+rar-2.50-3
+rcs-5.7-10
+rdate-0.960923-8
+readline_old-2.0-3
+readline-4.0-6
+readline-devel-4.0-6
+ren-1.0-4
+rgrep-0.98.7-2
+rhmask-1.0-6
+rlpr-2.00-2
+rman-3.0.7-1
+rmt-0.4b11-1
+rootfiles-6.0-2
+routed-0.10-14
+rpm2html-1.2-6
+rpm2targz-1.0-3
+rpm-3.0.3-11
+rpm-devel-3.0.3-11
+rpmfind-1.2-3
+rsh-0.10-23
+rstatd-3.03-1
+rsync-2.3.1-1
+rungetty-1.2-1
+ruptime-5.8-4
+rusers-0.10-22
+rwall-0.10-22
+rwho-0.16-1
+rxvt-2.7.0-5
+sag-0.6-4
+samba-2.0.6-19991228
+samba-nsswitch-2.0.6-19991228
+scotty-2.1.10-2
+scotty-suid-2.1.10-2
+scotty-tkined-2.1.10-2
+screen-3.9.5-1
+scsiinfo-1.7-3
+SDL-0.9.9-1
+SDL-devel-0.9.9-1
+sed-3.02-4
+sendmail-8.9.3-17
+sendmail-cf-8.9.3-17
+sendmail-doc-8.9.3-17
+setconsole-1.0-8
+setserial-2.15-24
+setup-6.0-1
+seyon-2.14c-9
+sfdisk-3.07-2
+sgml-tools-1.0.9-3
+shadow-utils-19990827-2
+sharutils-4.2-12
+sh-utils-2.0-2
+slang-1.3.8-2
+slang-devel-1.3.8-2
+sliplogin-2.1.1-5
+slocate-2.1-3
+smake-1.3.2-1
+smbfs-2.0.6-19991228
+smtpfeed-1.02-1
+sniffit-0.3.7.beta-2
+socks5-clients-1.0r10-1
+socks5-devel-1.0r10-1
+sox-12.16-1
+sox-devel-12.16-1
+stat-1.5-11
+statnet-3.5-1
+statserial-1.1-13
+strace-4.1-1
+strobe-1.04-3
+suck-4.2.2-1
+svgalib-1.4.0-7
+svgalib-devel-1.4.0-7
+SVGATextMode-1.8-4
+swatch-2.2-7
+symlinks-1.2-5
+sysklogd-1.3.31-4
+SysVinit-2.76-7
+taper-6.9-6
+tar-1.13.14-1
+tcl-8.0.4-30
+tcltk_old-7642-2
+tclx-8.0.4-30
+tcp_wrappers-7.6-7
+tcpdump-3.4-13
+tcsh-6.08.00-7
+telnet-0.10-30
+termcap-9.12.6-15
+tetex-1.0.6-6
+tetex-afm-1.0.6-6
+tetex-doc-1.0.6-6
+tetex-dvilj-1.0.6-6
+tetex-dvips-1.0.6-6
+tetex-fonts-1.0.6-6
+tetex-latex-1.0.6-6
+tetex-xdvi-1.0.6-6
+texinfo-4.0-4
+textutils-2.0-2
+tidy-24nov99-1
+time-1.7-9
+timed-0.10-22
+tix-4.1.0.6-30
+tk-8.0.4-30
+tkinter-1.5.2-4
+tkrat-1.2-1
+TkStep-8.0.4-1
+TkStep-devel-8.0.4-1
+TkStep-man-8.0.4-1
+TkStep-replace-8.0.4-1
+TkStep-replace-devel-8.0.4-1
+tlsound-1.1-1
+tmpwatch-2.0-2
+tofrodos-1.1-2
+traceroute-1.4a5-7
+trafshow-1.3-5
+transfig-3.2.1-3
+tree-1.2-6
+trueprint-5.0-1
+turbofscfg-1.4-1
+turbohw-0.27-1
+turbolinux-release-wks-6.0-2
+turbonetcfg-1.6.3-1
+turbonetcfg-apachecfg-1.6.3-1
+turbonetcfg-ftp-1.6.3-1
+turbonetcfg-ppp-1.6.3-1
+turbopkg-6.0.0-1
+turbopnpcfg-1.4.2-2
+turboprintcfg-2.0.2-1
+turboservice-3.0.1-1
+turbosoundcfg-1.2.3-1
+turbotimecfg-3.2.2-1
+turbousercfg-1.2.0-6
+turboxcfg-6.0.4-2
+ucd-snmp-4.0.1-5
+ucd-snmp-devel-4.0.1-5
+ucd-snmp-utils-4.0.1-5
+umb-scheme-3.2-10
+unace-1.2b-1
+unarj-2.43-1
+units-1.0-12
+unrar-2.50-1
+unzip-5.40-2
+urlview-0.7-4
+urw-fonts-1.1-8
+user-0.1-2
+usermode-1.6-1
+usernet-1.0.9-2
+utempter-0.5-1
+util-linux-2.10c-1
+utok-1.5-1
+uucp-1.06.1-21
+uudeall-19970331-1
+uudeview-0.5.13-4
+VFlib-2.24.2-1
+vim-common-5.5-7
+vim-standard-5.5-7
+vim-X11-5.5-7
+vixie-cron-3.0.1-40
+vlock-1.3-2
+vm-6.64-1
+VMware-1.1.2-364
+vmware-tools-linux-282-1
+vmware-tools-windows-282-1
+vtun-1.5-1
+w3c-libwww-5.2.6-2
+w3c-libwww-devel-5.2.6-2
+which-2.8-1
+whirlgif-2.01-4
+words-2-12
+wrap-2.9-2
+wwwoffle-2.5b-3
+X11R6-contrib-3.3.2-4
+x3270-3.1.1.9-7
+xanim-2801-4
+Xaw3d-1.5-2
+Xaw3d-devel-1.5-2
+xbanner-1.31-6
+xbuffy-3.3.bl.3-1.rhl5
+xcb-2.3-3
+xcdroast-0.96e-4
+xcolorsel-1.1a-7
+xcopilot-v0.4-2
+xcpustate-2.5-5
+xdelta-1.1.1-2
+xdosemu-0.99.10-5
+xdu-3.0-3
+xearth-1.0-14
+xfig-3.2.2-5
+xfishtank-2.1tp-3
+xforms-0.88.1-1
+xforms-devel-0.88.1-1
+XFree86-100dpi-fonts-3.3.5-14
+XFree86-3.3.5-14
+XFree86-3Dlabs-3.3.5-14
+XFree86-75dpi-fonts-3.3.5-14
+XFree86-8514-3.3.5-14
+XFree86-AGX-3.3.5-14
+XFree86-cyrillic-fonts-3.3.5-14
+XFree86-devel-3.3.5-14
+XFree86-I128-3.3.5-14
+XFree86-latin2-fonts-3.3.5-14
+XFree86-libs-3.3.5-14
+XFree86-Mach32-3.3.5-14
+XFree86-Mach64-3.3.5-14
+XFree86-Mach8-3.3.5-14
+XFree86-Mono-3.3.5-14
+XFree86-P9000-3.3.5-14
+XFree86-S3-3.3.5-14
+XFree86-S3V-3.3.5-14
+XFree86-SVGA-3.3.5-14
+XFree86-VGA16-3.3.5-14
+XFree86-W32-3.3.5-14
+XFree86-xaw-3.3.5-14
+XFree86-XF86Setup-3.3.5-14
+XFree86-xfs-3.3.5-14
+XFree86-xwrapper-3.3.5-14
+xinetd-2.1.8.6b3-2
+xinetd-devel-2.1.8.6b3-2
+xinitrc-4.1-2
+xkeycaps-2.43-2
+xloadimage-4.1-12
+xlockmore-4.13-4
+xlogmaster-1.6.0-2
+xmailbox-2.5-7
+XmHTML-1.1.5-1
+XmHTML-devel-1.1.5-1
+xmms-0.9.5.1-2
+xmms-devel-0.9.5.1-2
+xmms-esd-0.9.5.1-2
+xmms-gnome-0.9.5.1-2
+xmms-mikmod-0.9.5.1-2
+xmplay-1.0-9
+xosview-1.7.1-2
+xpaint-2.4.9-9
+xpdf-0.80-1
+xpm-3.4k-4
+xpm-devel-3.4k-4
+xpostitplus-2.3-5
+xringd-1.20-1
+xscreensaver-3.22-1
+xsnow-1.40-4
+xsysinfo-1.6-5
+xterm-color-1.1-11
+xtoolwait-1.2-2
+xv-3.10a-13
+xwhois-0.3.9-1
+xwpe-1.5.17a-1
+xwpe-X11-1.5.17a-1
+xwpick-2.20-11
+xxgdb-1.12-10
+yodl-1.31.18-4
+ypbind-3.3-16
+yp-tools-2.3-2
+ytalk-3.1-3
+zip-2.2-2
+zlib-1.1.3-3
+zlib-devel-1.1.3-3
+zsh-3.1.6.pws.11-4
+
+
+
+autoboot.bat
+copying
+fips.exe
+fips15.zip
+fips20.zip
+gzip.exe
+loadlin.exe
+mkboot.bat
+mke2.bat
+mkehw.bat
+mksupp.bat
+rawrite.exe
+rawrite3.doc
+rdev.exe
+restorrb.exe
+
+
+

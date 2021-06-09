@@ -1,0 +1,210 @@
+These are all the useful commands I can think of right now that you don't need
+to have root privileges to run.  Some will be useful for Werewolves, others
+might be useful for CtF contests, for the rest, who knows.
+
+The five most important commands in Linux are:
+apropos           - search the manual page names and descriptions
+help              - bash built-in commands, see bash
+info              - readable online documentation
+man               - an interface to the on-line reference manuals
+whatis            - display manual page descriptions
+
+For logging in, logging out, managing a terminal, editing text files:
+clear             - clear the terminal screen
+exit              - exit from a session
+history           - see your command history 
+scp               - secure copy (remote file copy program)
+screen            - screen manager with VT100/ANSI terminal emulation
+sftp              - secure file transfer program
+sleep             - delay for a specified amount of time
+ssh               - OpenSSH SSH client (remote login program)
+vim               - Vi IMproved, a programmers text editor
+watch             - execute a program periodically, showing output fullscreen
+
+For dealing with files and directories:
+cd                - change directories
+chown             - change file owner and group
+chgrp             - change group ownership
+chmod             - change file mode bits, e.g., such as permissions
+cksum             - checksum and count the bytes in a file
+cmp               - compare two files byte by byte
+cp                - copy files and directories
+dd                - convert and copy a file
+diff              - compare files line by line
+dirname           - strip last component from file name
+file              - determine file type
+find              - search for files in a directory hierarchy
+hexdump           - display file contents in ascii, decimal, hexadecimal, ...
+ls                - list directory contents
+md5sum            - compute and check MD5 message digest
+mkdir             - make directories
+mv                - move (rename) files
+pwd               - print name of current/working directory
+rm                - remove files or directories
+rmdir             - remove empty directories
+sha1sum           - compute and check SHA1 message digest
+stat              - display file or file system status
+touch             - change file timestamps
+wget              - The non-interactive network downloader
+
+Commands for finding and interacting with other users:
+finger            - See some baisc user info, like that last login time
+groups            - print the groups a user is in
+id                - print real and effective user and group IDs
+sslpasswd (1ssl)  - compute password hashes
+passwd            - update user's authentication tokens
+users             - print the user names of users currently logged in
+w                 - Show who is logged on and what they are doing
+who               - show who is logged on
+whoami            - print effective userid
+write             - send a message to another user
+
+Commands for processes and understanding what's going on in the system:
+free              - Display amount of free and used memory in the system
+kill              - terminate a process
+killall           - kill processes by name
+ps                - report a snapshot of the current processes.
+pstree            - display a tree of processes
+top               - display Linux processes
+
+Networking commands:
+host              - DNS lookup utility
+hostname          - show or set the system's host name
+ifconfig          - configure a network interface
+mtr               - slightly fancy combination of traceroute and ping
+netstat           - Print network connections, routing tables, etc.
+ping              - send ICMP ECHO_REQUEST to network hosts
+traceroute        - print the route packets trace to network host
+dig               - DNS lookup utility
+
+Some advanced stuff for bash scripting and playing Werewolves:
+done              - built-in for bash scripting
+for               - built-in for bash scripting 
+fuser             - identify processes using files or sockets
+lsof              - list open files
+nohup             - run a command immune to hangups, with output to a non-tty
+nslookup          - query Internet name servers interactively
+while             - built-in for bash scripting
+
+Commands for I/O processing
+awk               - pattern scanning and processing language
+cat               - concatenate files and print on the standard output
+echo              - display a line of text
+grep              - print lines matching a pattern
+head              - output the first part of files
+HEAD              - Simple command line user agent
+less              - opposite of more
+more              - file perusal filter for crt viewing
+rev               - reverse lines of a file or files
+sed               - stream editor for filtering and transforming text
+sort              - sort lines of text files
+strings           - print the strings of printable characters in files
+tail              - output the last part of files
+tee               - read from standard input and write to standard output
+tr                - translate or delete characters
+uniq              - report or omit repeated lines
+
+
+Others:
+alias             - bash built-in commands, see bash
+arp               - manipulate the system ARP cache
+arping            - send ARP REQUEST to a neighbour host
+basename          - strip directory and suffix from filenames
+bash              - GNU Bourne-Again SHell
+bg                - bash built-in commands, see bash
+break             - bash built-in commands, see bash
+bzip2             - a block-sorting file compressor, v1.0.6
+cal               - display a calendar
+comm              - compare two sorted files line by line
+convert           - Might be useful for CtF
+chaosreader       - Might be useful for CtF
+cut               - remove sections from each line of files
+date              - print or set the system date and time
+dc                - an arbitrary precision calculator
+df                - report file system disk space usage
+dirs              - bash built-in commands, see bash
+dmesg             - print or control the kernel ring buffer
+du                - estimate file space usage
+egrep             - print lines matching a pattern
+eject             - eject removable media
+env               - run a program in a modified environment
+expect            - Might be useful for CtF
+expand            - convert tabs to spaces
+export            - bash built-in commands, see bash
+false             - do nothing, unsuccessfully
+fg                - bash built-in commands, see bash
+fgrep             - print lines matching a pattern
+fmt               - simple optimal text formatter
+gawk              - pattern scanning and processing language
+gdb               - The GNU Debugger
+gunzip            - compress or expand files
+gzip              - compress or expand files
+iconv             - Might be useful for CtF
+iftop             - Might be useful for CtF
+jobs              - bash built-in commands, see bash
+join              - join lines of two files on a common field
+ln                - make links between files
+locate            - find files by name
+logname           - print user's login name
+logout            - bash built-in commands, see bash
+look              - display lines beginning with a given string
+ltrace            - Might be useful for CtF
+mkfifo            - make FIFOs (named pipes)
+mmv               - massive move
+mogrify           - Might be useful for CtF
+nice              - run a program with modified scheduling priority
+nl                - number lines of files
+nm                - list symbols from object files
+objdump           - display information from object files.
+od                - dump files in octal and other formats
+paste             - merge lines of files
+pax               - Might be useful for CtF
+pkill             - look up or signal processes based on name and other at...
+popd              - bash built-in commands, see bash
+pushd             - bash built-in commands, see bash
+pv                - Might be useful for CtF
+quota             - get disk quota info
+readelf           - Displays information about ELF files.
+rename            - rename files
+renice            - alter priority of running processes
+ripole            - Might be useful for CtF
+sdel              - secure delete
+select            - Might be useful for CtF
+seq               - print a sequence of numbers
+shred             - overwrite a file to hide its contents, and optionally ...
+shuf              - generate random permutations
+split             - split a file into pieces
+strace            - Might be useful for CtF
+su                - run a command with substitute user and group ID
+sudo              - execute a command as another user
+sum               - checksum and count the blocks in a file
+suspend           - bash built-in commands, see bash
+tac               - concatenate and print files in reverse
+tar               - an archiver tool
+tar               - format of tape archive files
+tcpdump           - dump traffic on a network
+tcpflow           - Might be useful for CtF
+tcpick            - Might be useful for CtF
+time              - time a process
+timeout           - run a command with a time limit
+times             - bash built-in commands, see bash
+tshark            - Might be useful for CtF
+tsort             - perform topological sort
+tty               - print the file name of the terminal connected to stdout
+type              - bash built-in commands, see bash
+ulimit            - bash built-in commands, see bash
+umask             - bash built-in commands, see bash
+uname             - print system information
+unzip             - list, test and extract compressed files in a ZIP archive
+uptime            - Tell how long the system has been running.
+uuencode          - Might be useful for CtF
+uudecode          - Might be useful for CtF
+valgrind          - Might be useful for CtF
+wait              - bash built-in commands, see bash
+wc                - print newline, word, and byte counts for each file
+whereis           - locate binary, source, and manual page files
+which             - shows the full path of (shell) commands
+whois             - Might be useful for CtF
+wireshark         - Might be useful for CtF
+zip               - package and compress (archive) files
+zipinfo           - list detailed information about a ZIP archive
